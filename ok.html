@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Quote Generator</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    font-family: 'Segoe UI', Arial, sans-serif;
+    transition: background 0.6s ease;
+  }
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 40px 36px;
+    max-width: 520px;
+    width: 90%;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    text-align: center;
+  }
+  #quote {
+    font-size: 1.4rem;
+    color: #222;
+    margin-bottom: 16px;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #author {
+    font-size: 1rem;
+    color: #777;
+    margin-bottom: 28px;
+    font-style: italic;
+  }
+  button {
+    background: #2575fc;
+    color: #fff;
+    border: none;
+    padding: 12px 28px;
+    font-size: 1rem;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: transform 0.15s ease, background 0.3s ease;
+  }
+  button:hover {
+    background: #6a11cb;
+    transform: translateY(-2px);
+  }
+  button:active {
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div id="quote">Click the button to get a quote!</div>
+  <div id="author"></div>
+  <button id="newQuoteBtn">New Quote</button>
+</div>
+
+<script>
+  const quotes = [
+    { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
+    { text: "Life is what happens when you're busy making other plans.", author: "John Lennon" },
+    { text: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt" },
+    { text: "It does not matter how slowly you go as long as you do not stop.", author: "Confucius" },
+    { text: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" },
+    { text: "What you get by achieving your goals is not as important as what you become by achieving your goals.", author: "Zig Ziglar" },
+    { text: "The only limit to our realization of tomorrow is our doubts of today.", author: "Franklin D. Roosevelt" },
+    { text: "Do not wait to strike till the iron is hot, but make it hot by striking.", author: "William Butler Yeats" },
+    { text: "Whether you think you can or you think you can't, you're right.", author: "Henry Ford" }
+  ];
+
+  const quoteEl = document.getElementById("quote");
+  const authorEl = document.getElementById("author");
+  const btn = document.getElementById("newQuoteBtn");
+
+  let lastIndex = -1;
+
+  function showRandomQuote() {
+    let index;
+    do {
+      index = Math.floor(Math.random() * quotes.length);
+    } while (index === lastIndex && quotes.length > 1);
+    lastIndex = index;
+
+    quoteEl.style.opacity = 0;
+    setTimeout(() => {
+      quoteEl.textContent = `"${quotes[index].text}"`;
+      authorEl.textContent = `— ${quotes[index].author}`;
+      quoteEl.style.opacity = 1;
+    }, 200);
+  }
+
+  quoteEl.style.transition = "opacity 0.2s ease";
+  btn.addEventListener("click", showRandomQuote);
+</script>
+
+</body>
+</html>
